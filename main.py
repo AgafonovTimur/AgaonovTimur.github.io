@@ -1,12 +1,12 @@
-import flet as ft
+import flet
 
 
-def main(page: ft.Page):
+def main(page: flet.Page):
     page.title = "Flet counter example"
-    page.theme_mode = ft.ThemeMode.LIGHT
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.theme_mode = flet.ThemeMode.LIGHT
+    page.vertical_alignment = flet.MainAxisAlignment.CENTER
 
-    txt_number = ft.TextField(value="0", text_align=ft.TextAlign.RIGHT, width=100)
+    txt_number = flet.TextField(value="0", text_align=flet.TextAlign.RIGHT, width=100)
 
     def minus_click(e):
         txt_number.value = str(int(txt_number.value) - 1)
@@ -17,15 +17,15 @@ def main(page: ft.Page):
         page.update()
 
     page.add(
-        ft.Row(
+        flet.Row(
             [
-                ft.IconButton(ft.icons.REMOVE, on_click=minus_click),
+                flet.IconButton(flet.icons.REMOVE, on_click=minus_click),
                 txt_number,
-                ft.IconButton(ft.icons.ADD, on_click=plus_click),
+                flet.IconButton(flet.icons.ADD, on_click=plus_click),
             ],
-            alignment=ft.MainAxisAlignment.CENTER,
+            alignment=flet.MainAxisAlignment.CENTER,
         )
     )
 
 
-ft.app(main, view=ft.AppView.WEB_BROWSER)
+flet.app(main, view=flet.AppView.WEB_BROWSER)
