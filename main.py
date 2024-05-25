@@ -139,10 +139,15 @@ def main(page: flet.Page):
             [
                 flet.IconButton(flet.icons.REMOVE, on_click=minus_click),
                 txt_number,
+                flet.FloatingActionButton(text="Add",
+                                            bgcolor=flet.colors.BROWN_900,
+                                            foreground_color=flet.colors.ORANGE),
                 flet.IconButton(flet.icons.ADD, on_click=plus_click),
             ],
             alignment=flet.MainAxisAlignment.CENTER,
-        )
+        ),
+
+    flet.Text("SHULTE123"),
     )
 
 
