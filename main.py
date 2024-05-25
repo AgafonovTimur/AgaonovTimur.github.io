@@ -6,15 +6,15 @@ from flet import *
 def main(page) -> None:
     page.add(flet.Text("SHULTE123"))
     page.title = "Shulte"
-    page.theme_mode = 'dark'
+    # page.theme_mode = 'dark'
     page.scroll = flet.ScrollMode.HIDDEN
     page.vertical_alignment = 'center'
-    page.horizontal_alignment = 'center'
-    page.update()
+    # page.horizontal_alignment = 'center'
+    # page.update()
     # page.window_width = 500
     # page.window_height = 500
     # page.add(flet.Column())
-    page.resizable = False
+    # page.resizable = False
 
     page.add(
         # 1
