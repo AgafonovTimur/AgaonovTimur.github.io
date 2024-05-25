@@ -10,7 +10,7 @@ permissions:
 
 # windows-latest
 jobs:
-  test:
+  Build_APP:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,7 +27,8 @@ jobs:
         run: flet build web
 
 
-  publish-report:
+  Publish_Web:
+    needs: Build_APP
     runs-on: ubuntu-latest
     name: Report publication
     steps:
