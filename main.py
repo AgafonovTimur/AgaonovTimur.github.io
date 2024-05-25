@@ -3,7 +3,7 @@ from flet import *
 
 
 
-def main(page) -> None:
+def main(page: flet.Page) -> None:
     # page.add(flet.Text("SHULTE123"))
     page.title = "Shulte"
     # page.theme_mode = 'dark'
