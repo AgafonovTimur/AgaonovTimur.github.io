@@ -110,8 +110,8 @@ def main(page: flet.Page) -> None:
 
 # flet.app(target=main)
 
-if __name__ == "__main__":
-    flet.app(main, view=flet.AppView.WEB_BROWSER)
+# if __name__ == "__main__":
+flet.app(main, view=flet.AppView.WEB_BROWSER)
 
 
 
