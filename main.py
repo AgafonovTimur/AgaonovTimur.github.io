@@ -4,11 +4,12 @@ from flet import *
 
 
 def main(page) -> None:
-    page.add(flet.Text("SHULTE123"))
+    # page.add(flet.Text("SHULTE123"))
     page.title = "Shulte"
     # page.theme_mode = 'dark'
-    page.scroll = flet.ScrollMode.HIDDEN
-    page.vertical_alignment = 'center'
+    # page.scroll = flet.ScrollMode.HIDDEN
+    page.vertical_alignment = flet.MainAxisAlignment.CENTER
+
     # page.horizontal_alignment = 'center'
     # page.update()
     # page.window_width = 500
@@ -21,7 +22,7 @@ def main(page) -> None:
         flet.Row(
             [
                 flet.IconButton(flet.icons.HOME),
-                flet.Icon(flet.icons.SETTINGS),
+                # flet.Icon(flet.icons.SETTINGS),
                 # flet.FloatingActionButton(text="Add",
                 #                           bgcolor=flet.colors.BROWN_900,
                 #                           foreground_color=flet.colors.ORANGE),
