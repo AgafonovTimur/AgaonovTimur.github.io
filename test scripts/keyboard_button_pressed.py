@@ -64,7 +64,7 @@ def main(page: Page) -> None:
 
 
 
-# ft.app(target=main)
+ft.app(target=main)
 #
 
 

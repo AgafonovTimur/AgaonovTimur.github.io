@@ -1,6 +1,6 @@
 # build for web : flet publish main.py
 import flet
-
+import random
 
 
 
@@ -22,13 +22,13 @@ def main(page: flet.Page) -> None:
 
     button_text = flet.Text("Add")
     user_text_enter = flet.TextField( value="0", width=150, text_align=flet.TextAlign.CENTER)
-    def check_number(event):
-        button_text.value = user_text_enter.value
-        page.update()
+    # def check_number(event):
+    #     button_text.value = user_text_enter.value
+    #     page.update()
 
-    table_number = 7
-    square_width = int(1000/table_number)
-    square_height = int(1000/table_number)
+    table_number = 5
+    square_width = int((page.height/table_number) - 10)
+    square_height = int((page.height/table_number) - 10)
     table_width = square_width*table_number
     table_height = square_height*table_number
     print(table_width, table_height, square_width, square_height)
@@ -48,9 +48,29 @@ def main(page: flet.Page) -> None:
 
                 )
             )
+            print(flet.Text(value=str(i)))
+        shuffling_numbers()
         return items
 
+
+    def shuffling_numbers():
+        list_of_numbers = []
+        for i in range(number_of_squares):
+            list_of_numbers.append(int(i))
+        shuffling =  random.shuffle(list_of_numbers)
+        print(list_of_numbers)
+        return shuffling
+
+
+    def change_text_in_squares():
+        pass
+    # ! after resize page
+    # def page_resize(e):
+    #     print("New page size:", page.window_width, page.window_height)
+    # page.on_resize = page_resize
+
     page.add(
+
         flet.Column(
             [
                 # flet.Text("4324"),
@@ -61,17 +81,14 @@ def main(page: flet.Page) -> None:
                         wrap=True,
                         run_spacing=0,
                     ),
-
                     bgcolor="#989898",
                     width=table_width,
                     height=table_height,
                 ),
-
             ],
         ),
+
     )
-
-
 # flet.app(target=main)
 flet.app(main, view=flet.AppView.WEB_BROWSER)
 
