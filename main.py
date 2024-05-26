@@ -53,7 +53,7 @@ def main(page: flet.Page) -> None:
     page.add(
         flet.Column(
             [
-                flet.Text("4324"),
+                # flet.Text("4324"),
                 flet.Container(
                     content=flet.Column(
                         items(number_of_squares),
@@ -72,8 +72,8 @@ def main(page: flet.Page) -> None:
     )
 
 
-flet.app(target=main)
-# flet.app(main, view=flet.AppView.WEB_BROWSER)
+# flet.app(target=main)
+flet.app(main, view=flet.AppView.WEB_BROWSER)
 
 
 
