@@ -1,4 +1,6 @@
+# build for web : flet publish main.py
 import flet
+
 
 
 
@@ -6,8 +8,10 @@ def main(page: flet.Page) -> None:
     # page.add(flet.Text("SHULTE123"))
     page.title = "Shulte"
     # flet.ThemeMode.DARK
-    # page.scroll = flet.ScrollMode.HIDDEN
+    page.scroll = flet.ScrollMode.HIDDEN
     page.vertical_alignment = flet.MainAxisAlignment.CENTER
+    page.horizontal_alignment = flet.CrossAxisAlignment.CENTER
+    # page.bgcolor = "#272727"
 
     page.horizontal_alignment = 'center'
     page.update()
@@ -16,151 +20,61 @@ def main(page: flet.Page) -> None:
     # page.add(flet.Column())
     # page.resizable = False
 
+    button_text = flet.Text("Add")
+    user_text_enter = flet.TextField( value="0", width=150, text_align=flet.TextAlign.CENTER)
+    def check_number(event):
+        button_text.value = user_text_enter.value
+        page.update()
+
+    table_number = 7
+    square_width = int(1000/table_number)
+    square_height = int(1000/table_number)
+    table_width = square_width*table_number
+    table_height = square_height*table_number
+    print(table_width, table_height, square_width, square_height)
+    number_of_squares = table_number**2
+
+    def items(count):
+        items = []
+        for i in range(1, count + 1):
+            items.append(
+                flet.Container(
+                    content=flet.Text(value=str(i)),
+                    alignment=flet.alignment.center,
+                    width=square_width,
+                    height=square_height,
+                    bgcolor="#252525",
+                    border=flet.border.all(1, "#505050"),
+
+                )
+            )
+        return items
+
     page.add(
-        # 1
-        flet.Row(
+        flet.Column(
             [
-                flet.IconButton(flet.icons.HOME),
-                flet.Icon(flet.icons.SETTINGS),
-                flet.FloatingActionButton(text="Add",
-                                          bgcolor=flet.colors.BROWN_900,
-                                          foreground_color=flet.colors.ORANGE,
-                                          focus_color = flet.colors.CYAN_ACCENT,
-                                          hover_elevation = flet.colors.CYAN_ACCENT,
-                                          icon = flet.icons.SETTINGS,
-                                          tooltip = "kek?",
-                                          ),
-                flet.IconButton(flet.icons.HOME),
-                flet.Icon(flet.icons.SETTINGS),
-                flet.FloatingActionButton(text="Add",
-                                          bgcolor=flet.colors.BROWN_900,
-                                          foreground_color=flet.colors.ORANGE),
-                flet.Text("SHULTE123"),
-                flet.TextButton(text="SHULTE"),
+                flet.Text("4324"),
+                flet.Container(
+                    content=flet.Column(
+                        items(number_of_squares),
+                        spacing=0,
+                        wrap=True,
+                        run_spacing=0,
+                    ),
+
+                    bgcolor="#989898",
+                    width=table_width,
+                    height=table_height,
+                ),
+
             ],
-            alignment=flet.MainAxisAlignment.CENTER,
         ),
-        # 2
-    flet.Row(
-        [
-            flet.IconButton(flet.icons.HOME),
-            flet.Icon(flet.icons.SETTINGS),
-            flet.FloatingActionButton(text="Add",
-                                      bgcolor=flet.colors.BROWN_900,
-                                      foreground_color=flet.colors.ORANGE),
-            flet.IconButton(flet.icons.HOME),
-            flet.Icon(flet.icons.SETTINGS),
-            flet.FloatingActionButton(text="Add",
-                                      bgcolor=flet.colors.BROWN_900,
-                                      foreground_color=flet.colors.ORANGE),
-            flet.Text("SHULTE123")
-        ],
-        alignment=flet.MainAxisAlignment.CENTER,
-    ),
-        # 3
-        flet.Row(
-            [
-                flet.IconButton(flet.icons.HOME),
-                flet.Icon(flet.icons.SETTINGS),
-                flet.FloatingActionButton(text="Add",
-                                          bgcolor=flet.colors.BROWN_900,
-                                          foreground_color=flet.colors.ORANGE),
-                flet.IconButton(flet.icons.HOME),
-                flet.Icon(flet.icons.SETTINGS),
-                flet.FloatingActionButton(text="Add",
-                                          bgcolor=flet.colors.BROWN_900,
-                                          foreground_color=flet.colors.ORANGE),
-                flet.Text("SHULTE123")
-            ],
-            alignment=flet.MainAxisAlignment.CENTER,
-        ),
-        # 4
-        flet.Row(
-            [
-                flet.IconButton(flet.icons.HOME),
-                flet.Icon(flet.icons.SETTINGS),
-                flet.FloatingActionButton(text="Add",
-                                          bgcolor=flet.colors.BROWN_900,
-                                          foreground_color=flet.colors.ORANGE),
-                flet.IconButton(flet.icons.HOME),
-                flet.Icon(flet.icons.SETTINGS),
-                flet.FloatingActionButton(text="Add",
-                                          bgcolor=flet.colors.BROWN_900,
-                                          foreground_color=flet.colors.ORANGE),
-                flet.Text("SHULTE123")
-            ],
-            alignment=flet.MainAxisAlignment.CENTER,
-        ),
-        # 5
-        flet.Row(
-            [
-                flet.IconButton(flet.icons.HOME),
-                flet.Icon(flet.icons.SETTINGS),
-                flet.FloatingActionButton(text="Addd",
-                                          bgcolor=flet.colors.BROWN_900,
-                                          foreground_color=flet.colors.ORANGE),
-                flet.IconButton(flet.icons.HOME),
-                flet.Icon(flet.icons.SETTINGS),
-                flet.FloatingActionButton(text="Add", height=150,
-                                          bgcolor=flet.colors.BROWN_900,
-                                          foreground_color=flet.colors.ORANGE),
-                flet.Text("SHULTE123",text_align=flet.TextAlign.CENTER)
-            ],
-            alignment=flet.MainAxisAlignment.CENTER,
-        )
     )
 
 
-flet.app(main, view=flet.AppView.WEB_BROWSER)
-
-
-#
-#
-# import flet
-#
-#
-# def main(page: flet.Page):
-#     page.title = "Flet counter example"
-#     page.theme_mode = flet.ThemeMode.DARK
-#     page.vertical_alignment = flet.MainAxisAlignment.CENTER
-#
-#     txt_number = flet.TextField(value="0", text_align=flet.TextAlign.RIGHT, width=100)
-#
-#     def minus_click(e):
-#         txt_number.value = str(int(txt_number.value) - 1)
-#         page.update()
-#
-#     def plus_click(e):
-#         txt_number.value = str(int(txt_number.value) + 1)
-#         page.update()
-#
-#     page.add(
-#         flet.Row(
-#             [
-#                 flet.IconButton(flet.icons.REMOVE, on_click=minus_click),
-#                 txt_number,
-#                 flet.FloatingActionButton(text="Add",
-#                                             bgcolor=flet.colors.BROWN_900,
-#                                             foreground_color=flet.colors.ORANGE),
-#                 flet.IconButton(flet.icons.ADD, on_click=plus_click),
-#             ],
-#             alignment=flet.MainAxisAlignment.CENTER,
-#         ),
-#
-#     flet.Text("SHULTE123"),
-#     flet.Text
-#     )
-#
-#
+flet.app(target=main)
 # flet.app(main, view=flet.AppView.WEB_BROWSER)
-#
-#
-#
-#
-#
-#
-#
-#
+
 
 
 
