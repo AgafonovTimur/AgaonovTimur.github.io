@@ -34,12 +34,20 @@ def main(page: flet.Page) -> None:
     print(table_width, table_height, square_width, square_height)
     number_of_squares = table_number**2
 
-    def items(count):
+    def items():
+        list_of_numbers = []
+        for i in range(number_of_squares):
+            list_of_numbers.append(int(i) + 1)
+        shuffling =  random.shuffle(list_of_numbers)
+        print(list_of_numbers,len(list_of_numbers))
+
         items = []
-        for i in range(1, count + 1):
+        for i in range(0, len(list_of_numbers)):
             items.append(
                 flet.Container(
-                    content=flet.Text(value=str(i)),
+                    content=flet.Text(value=str(list_of_numbers[i]),
+                                      size=47,
+                                      weight=flet.FontWeight.W_500),
                     alignment=flet.alignment.center,
                     width=square_width,
                     height=square_height,
@@ -48,35 +56,52 @@ def main(page: flet.Page) -> None:
 
                 )
             )
-            print(flet.Text(value=str(i)))
-        shuffling_numbers()
         return items
 
+    def on_keyboard(e: flet.KeyboardEvent):
+        if e.key == "H":
+            # items()
+            page.clean()
+            page.add(
+                flet.Column(
+                    [
+                        # flet.Text("4324"),
+                        flet.Container(
+                            content=flet.Column(
+                                items(),
+                                spacing=0,
+                                wrap=True,
+                                run_spacing=0,
+                            ),
+                            bgcolor="#989898",
+                            width=table_width,
+                            height=table_height,
+                        ),
+                    ],
+                ),
+            )
+            page.update()
+        else:
+            print(e.key)
 
-    def shuffling_numbers():
-        list_of_numbers = []
-        for i in range(number_of_squares):
-            list_of_numbers.append(int(i))
-        shuffling =  random.shuffle(list_of_numbers)
-        print(list_of_numbers)
-        return shuffling
+
+    page.on_keyboard_event = on_keyboard
 
 
-    def change_text_in_squares():
-        pass
+    # def change_text_in_squares():
+    #     pass
     # ! after resize page
     # def page_resize(e):
     #     print("New page size:", page.window_width, page.window_height)
     # page.on_resize = page_resize
 
     page.add(
-
         flet.Column(
             [
                 # flet.Text("4324"),
                 flet.Container(
                     content=flet.Column(
-                        items(number_of_squares),
+                        items(),
                         spacing=0,
                         wrap=True,
                         run_spacing=0,
@@ -87,8 +112,8 @@ def main(page: flet.Page) -> None:
                 ),
             ],
         ),
-
     )
+
 # flet.app(target=main)
 flet.app(main, view=flet.AppView.WEB_BROWSER)
 
