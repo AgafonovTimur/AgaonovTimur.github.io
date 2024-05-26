@@ -33,13 +33,14 @@ def main(page: flet.Page) -> None:
     table_height = square_height*table_number
     print(table_width, table_height, square_width, square_height)
     number_of_squares = table_number**2
+    text_controls = []
 
     def items():
         list_of_numbers = []
         for i in range(number_of_squares):
             list_of_numbers.append(int(i) + 1)
         shuffling =  random.shuffle(list_of_numbers)
-        print(list_of_numbers,len(list_of_numbers))
+        print(list_of_numbers, len(list_of_numbers))
 
         items = []
         for i in range(0, len(list_of_numbers)):
@@ -61,25 +62,25 @@ def main(page: flet.Page) -> None:
     def on_keyboard(e: flet.KeyboardEvent):
         if e.key == "H":
             # items()
-            page.clean()
-            page.add(
-                flet.Column(
-                    [
-                        # flet.Text("4324"),
-                        flet.Container(
-                            content=flet.Column(
-                                items(),
-                                spacing=0,
-                                wrap=True,
-                                run_spacing=0,
-                            ),
-                            bgcolor="#989898",
-                            width=table_width,
-                            height=table_height,
-                        ),
-                    ],
-                ),
-            )
+            # page.clean()
+            # page.add(
+            #     flet.Column(
+            #         [
+            #             # flet.Text("4324"),
+            #             flet.Container(
+            #                 content=flet.Column(
+            #                     items(),
+            #                     spacing=0,
+            #                     wrap=True,
+            #                     run_spacing=0,
+            #                 ),
+            #                 bgcolor="#989898",
+            #                 width=table_width,
+            #                 height=table_height,
+            #             ),
+            #         ],
+            #     ),
+            # )
             page.update()
         else:
             print(e.key)
@@ -114,8 +115,8 @@ def main(page: flet.Page) -> None:
         ),
     )
 
-# flet.app(target=main)
-flet.app(main, view=flet.AppView.WEB_BROWSER)
+flet.app(target=main)
+# flet.app(main, view=flet.AppView.WEB_BROWSER)
 
 
 
