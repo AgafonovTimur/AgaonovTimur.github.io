@@ -5,6 +5,7 @@ import random
 
 
 def main(page: flet.Page) -> None:
+    page.splash = None
     # page.add(flet.Text("SHULTE123"))
     page.title = "Shulte"
     # flet.ThemeMode.DARK
@@ -61,26 +62,26 @@ def main(page: flet.Page) -> None:
 
     def on_keyboard(e: flet.KeyboardEvent):
         if e.key == "H":
-            # items()
-            # page.clean()
-            # page.add(
-            #     flet.Column(
-            #         [
-            #             # flet.Text("4324"),
-            #             flet.Container(
-            #                 content=flet.Column(
-            #                     items(),
-            #                     spacing=0,
-            #                     wrap=True,
-            #                     run_spacing=0,
-            #                 ),
-            #                 bgcolor="#989898",
-            #                 width=table_width,
-            #                 height=table_height,
-            #             ),
-            #         ],
-            #     ),
-            # )
+            items()
+            page.clean()
+            page.add(
+                flet.Column(
+                    [
+                        # flet.Text("4324"),
+                        flet.Container(
+                            content=flet.Column(
+                                items(),
+                                spacing=0,
+                                wrap=True,
+                                run_spacing=0,
+                            ),
+                            bgcolor="#989898",
+                            width=table_width,
+                            height=table_height,
+                        ),
+                    ],
+                ),
+            )
             page.update()
         else:
             print(e.key)
