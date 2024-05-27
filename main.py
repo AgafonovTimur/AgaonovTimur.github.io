@@ -9,7 +9,7 @@ def main(page: flet.Page) -> None:
     page.horizontal_alignment = flet.CrossAxisAlignment.CENTER
     page.update()
 
-    table_number = 3
+    table_number = 5
     square_width = int((page.height / table_number) - 10)
     square_height = square_width
     table_width = square_width * table_number
