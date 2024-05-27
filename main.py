@@ -1,125 +1,84 @@
-# build for web : flet publish main.py
 import flet
 import random
-
-
+import asyncio
 
 def main(page: flet.Page) -> None:
     page.splash = None
-    # page.add(flet.Text("SHULTE123"))
     page.title = "Shulte"
-    # flet.ThemeMode.DARK
     page.scroll = flet.ScrollMode.HIDDEN
     page.vertical_alignment = flet.MainAxisAlignment.CENTER
     page.horizontal_alignment = flet.CrossAxisAlignment.CENTER
-    # page.bgcolor = "#272727"
-
-    page.horizontal_alignment = 'center'
     page.update()
-    # page.window_width = 500
-    # page.window_height = 500
-    # page.add(flet.Column())
-    # page.resizable = False
-
-    button_text = flet.Text("Add")
-    user_text_enter = flet.TextField( value="0", width=150, text_align=flet.TextAlign.CENTER)
-    # def check_number(event):
-    #     button_text.value = user_text_enter.value
-    #     page.update()
 
     table_number = 5
-    square_width = int((page.height/table_number) - 10)
-    square_height = int((page.height/table_number) - 10)
-    table_width = square_width*table_number
-    table_height = square_height*table_number
-    print(table_width, table_height, square_width, square_height)
-    number_of_squares = table_number**2
-    text_controls = []
+    square_width = int((page.height / table_number) - 10)
+    square_height = square_width
+    table_width = square_width * table_number
+    table_height = square_height * table_number
+    number_of_squares = table_number ** 2
+    current_number = 1
 
-    def items():
-        list_of_numbers = []
-        for i in range(number_of_squares):
-            list_of_numbers.append(int(i) + 1)
-        shuffling =  random.shuffle(list_of_numbers)
-        print(list_of_numbers, len(list_of_numbers))
-
-        items = []
-        for i in range(0, len(list_of_numbers)):
-            items.append(
-                flet.Container(
-                    content=flet.Text(value=str(list_of_numbers[i]),
-                                      size=47,
-                                      weight=flet.FontWeight.W_500),
-                    alignment=flet.alignment.center,
-                    width=square_width,
-                    height=square_height,
-                    bgcolor="#252525",
-                    border=flet.border.all(1, "#505050"),
-
-                )
+    def items(shuffle=True):
+        list_of_numbers = list(range(1, number_of_squares + 1))
+        if shuffle:
+            random.shuffle(list_of_numbers)
+        containers = [
+            flet.Container(
+                content=flet.Text(value=str(num), size=47, weight=flet.FontWeight.W_500),
+                alignment=flet.alignment.center,
+                width=square_width,
+                height=square_height,
+                bgcolor="#252525",
+                border=flet.border.all(1, "#505050"),
+                data=num,
+                on_click=lambda e, num=num: on_square_click(e, num)  # Pass num using default argument
             )
-        return items
+            for num in list_of_numbers
+        ]
+        return containers
 
-    def on_keyboard(e: flet.KeyboardEvent):
-        if e.key == "H":
-            items()
-            page.clean()
-            page.add(
-                flet.Column(
-                    [
-                        # flet.Text("4324"),
-                        flet.Container(
-                            content=flet.Column(
-                                items(),
-                                spacing=0,
-                                wrap=True,
-                                run_spacing=0,
-                            ),
-                            bgcolor="#989898",
-                            width=table_width,
-                            height=table_height,
-                        ),
-                    ],
-                ),
-            )
-            page.update()
+    def on_square_click(e: flet.TapEvent, num: int):
+        nonlocal current_number  # Declare current_number as nonlocal
+        container = e.control
+        if num == current_number:
+            container.content = None  # Hide the number
+            page.update()  # Update the page to reflect the change immediately
+            current_number += 1
+            if current_number > number_of_squares:
+                reset_game()
         else:
-            print(e.key)
+            container.bgcolor = "#450a0a"
+            page.update()
+            # asyncio.sleep(0.5)  # Delay to show the wrong selection
+            container.bgcolor = "#252525"
+            page.update()
 
+    def reset_game():
+        nonlocal current_number
+        current_number = 1
+        new_items = items(shuffle=True)
+        page.clean()
+        page.add(flet.Column([
+            flet.Container(
+                content=flet.Column(new_items, spacing=0, wrap=True, run_spacing=0),
+                bgcolor="#989898",
+                width=table_width,
+                height=table_height,
+            ),
+        ]))
+        page.update()
 
-    page.on_keyboard_event = on_keyboard
+    page.on_keyboard_event = lambda e: items(shuffle=True) if e.key == "H" else None
 
-
-    # def change_text_in_squares():
-    #     pass
-    # ! after resize page
-    # def page_resize(e):
-    #     print("New page size:", page.window_width, page.window_height)
-    # page.on_resize = page_resize
-
-    page.add(
-        flet.Column(
-            [
-                # flet.Text("4324"),
-                flet.Container(
-                    content=flet.Column(
-                        items(),
-                        spacing=0,
-                        wrap=True,
-                        run_spacing=0,
-                    ),
-                    bgcolor="#989898",
-                    width=table_width,
-                    height=table_height,
-                ),
-            ],
+    # Initial display
+    initial_items = items()
+    page.add(flet.Column([
+        flet.Container(
+            content=flet.Column(initial_items, spacing=0, wrap=True, run_spacing=0),
+            bgcolor="#989898",
+            width=table_width,
+            height=table_height,
         ),
-    )
+    ]))
 
-flet.app(target=main)
-# flet.app(main, view=flet.AppView.WEB_BROWSER)
-
-
-
-
-
+flet.app(target=main, view=flet.AppView.WEB_BROWSER)
