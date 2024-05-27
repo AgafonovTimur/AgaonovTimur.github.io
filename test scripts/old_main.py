@@ -1,6 +1,5 @@
 import flet
 import random
-import asyncio
 
 def main(page: flet.Page) -> None:
     page.splash = None
@@ -22,7 +21,7 @@ def main(page: flet.Page) -> None:
         list_of_numbers = list(range(1, number_of_squares + 1))
         if shuffle:
             random.shuffle(list_of_numbers)
-        containers = [
+        return [
             flet.Container(
                 content=flet.Text(value=str(num), size=47, weight=flet.FontWeight.W_500),
                 alignment=flet.alignment.center,
@@ -31,18 +30,17 @@ def main(page: flet.Page) -> None:
                 bgcolor="#252525",
                 border=flet.border.all(1, "#505050"),
                 data=num,
-                on_click=lambda e, num=num: on_square_click(e, num)  # Pass num using default argument
+                on_click=lambda e, num=num: on_square_click(e, num)
             )
             for num in list_of_numbers
         ]
-        return containers
 
     def on_square_click(e: flet.TapEvent, num: int):
-        nonlocal current_number  # Declare current_number as nonlocal
+        nonlocal current_number
         container = e.control
         if num == current_number:
-            container.content = None  # Hide the number
-            page.update()  # Update the page to reflect the change immediately
+            container.content = None
+            page.update()
             current_number += 1
             if current_number > number_of_squares:
                 reset_game()
@@ -68,7 +66,13 @@ def main(page: flet.Page) -> None:
         ]))
         page.update()
 
-    page.on_keyboard_event = lambda e: items(shuffle=True) if e.key == "H" else None
+    def on_keyboard(e: flet.KeyboardEvent):
+        if e.key == "H":
+            nonlocal current_number
+            current_number = 1  # Reset the current number
+            reset_game()  # Call reset_game to shuffle and update UI
+
+    page.on_keyboard_event = on_keyboard
 
     # Initial display
     initial_items = items()

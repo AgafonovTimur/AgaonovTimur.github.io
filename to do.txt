@@ -1,0 +1,1 @@
+add time when all squares found and save it as variable in cookie somewhere and show it in label or something
