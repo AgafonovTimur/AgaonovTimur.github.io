@@ -81,4 +81,5 @@ def main(page: flet.Page) -> None:
         ),
     ]))
 
+# flet.app(target=main)
 flet.app(target=main, view=flet.AppView.WEB_BROWSER)
