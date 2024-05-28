@@ -56,6 +56,7 @@ def main(page: flet.Page) -> None:
         table_number = num
         print(num, "matrix selected")
         page.update()
+        main_logic.use_data(table_number)
         return table_number
 
     page.add(flet.Column([
@@ -65,7 +66,6 @@ def main(page: flet.Page) -> None:
             width=table_width,
             height=table_height,
         ),
-        # main_logic.use_data(table_number)
     ]))
 
 flet.app(target=main)
