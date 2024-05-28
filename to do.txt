@@ -1,1 +1,3 @@
 add time when all squares found and save it as variable in cookie somewhere and show it in label or something
+change color to more soft
+add choise 2 to 10 squares

@@ -1,8 +1,11 @@
 import flet
 import random
+import time
+
 
 def main(page: flet.Page) -> None:
     page.splash = None
+
     page.title = "Shulte"
     page.scroll = flet.ScrollMode.HIDDEN
     page.vertical_alignment = flet.MainAxisAlignment.CENTER
@@ -16,19 +19,26 @@ def main(page: flet.Page) -> None:
     table_height = square_height * table_number
     number_of_squares = table_number ** 2
     current_number = 1
+    square_bgcolor = "#5e5e5e"
+    text_color = "#909090"
+    background_color = "#222222"
+    wrong_number_color = "#6d5555"
+    page.bgcolor = background_color
 
+    # create squares
     def items(shuffle=True):
         list_of_numbers = list(range(1, number_of_squares + 1))
         if shuffle:
             random.shuffle(list_of_numbers)
         return [
             flet.Container(
-                content=flet.Text(value=str(num), size=47, weight=flet.FontWeight.W_500),
+                content=flet.Text(value=str(num), size=square_height*0.5, color=text_color, weight=flet.FontWeight.W_700),
                 alignment=flet.alignment.center,
                 width=square_width,
                 height=square_height,
-                bgcolor="#252525",
-                border=flet.border.all(1, "#505050"),
+                bgcolor=square_bgcolor,
+                border=flet.border.all(2, background_color),
+                border_radius=5,
                 data=num,
                 on_click=lambda e, num=num: on_square_click(e, num)
             )
@@ -45,10 +55,11 @@ def main(page: flet.Page) -> None:
             if current_number > number_of_squares:
                 reset_game()
         else:
-            container.bgcolor = "#450a0a"
+            container.bgcolor = wrong_number_color
             page.update()
-            # asyncio.sleep(0.5)  # Delay to show the wrong selection
-            container.bgcolor = "#252525"
+            time.sleep(0.17)
+            # asyncio.sleep(1)  # Delay to show the wrong selection
+            container.bgcolor = square_bgcolor
             page.update()
 
     def reset_game():
@@ -76,13 +87,14 @@ def main(page: flet.Page) -> None:
 
     # Initial display
     initial_items = items()
+    # page.add(flet.Container)
     page.add(flet.Column([
         flet.Container(
             content=flet.Column(initial_items, spacing=0, wrap=True, run_spacing=0),
-            bgcolor="#989898",
+            bgcolor=background_color,
             width=table_width,
             height=table_height,
-        ),
+        )
     ]))
 
 # flet.app(target=main)
